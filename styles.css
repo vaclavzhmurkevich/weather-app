@@ -1,0 +1,1457 @@
+/* ==========================================================================
+   CSS Custom Properties & Theme Variables
+   ========================================================================== */
+:root {
+  /* Typography */
+  --font-primary: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Shared Glassmorphism Properties */
+  --glass-bg-white: linear-gradient(135deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.01));
+  --glass-bg-white-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.02));
+  --glass-bg-tint: linear-gradient(135deg, var(--accent-color-alpha-15), transparent 60%);
+  --glass-border-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.02) 40%, rgba(255, 255, 255, 0.02) 60%, var(--accent-border-glow, rgba(0, 245, 212, 0.15)));
+  --glass-border-gradient-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.04) 40%, rgba(255, 255, 255, 0.04) 60%, var(--accent-border-glow-hover, rgba(0, 245, 212, 0.3)));
+  --glass-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 0 20px var(--accent-glow-shadow, rgba(0, 245, 212, 0.04)), 0 12px 40px rgba(0, 0, 0, 0.5);
+  --glass-shadow-hover: inset 0 0 0 1px rgba(255, 255, 255, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 0 28px var(--accent-glow-shadow-hover, rgba(0, 245, 212, 0.08)), 0 16px 48px rgba(0, 0, 0, 0.55);
+  --backdrop-blur: blur(20px);
+
+  /* Shared Styling Rules */
+  --border-radius-lg: 24px;
+  --border-radius-md: 16px;
+  --border-radius-sm: 10px;
+  --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Default Colors (Will be overridden by weather themes) */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --bg-base: #040909;
+  --accent-color: #00f5d4;
+  --glow-color-1: rgba(0, 150, 136, 0.6);
+  --glow-color-2: rgba(0, 229, 255, 0.4);
+
+  /* Default border glow variables */
+  --accent-border-glow: rgba(0, 245, 212, 0.18);
+  --accent-border-glow-hover: rgba(0, 245, 212, 0.35);
+  --accent-glow-shadow: rgba(0, 245, 212, 0.03);
+  --accent-glow-shadow-hover: rgba(0, 245, 212, 0.06);
+  --accent-color-alpha-10: rgba(0, 245, 212, 0.1);
+  --accent-color-alpha-15: rgba(0, 245, 212, 0.15);
+  --accent-color-alpha-25: rgba(0, 245, 212, 0.25);
+  --accent-color-alpha-40: rgba(0, 245, 212, 0.4);
+}
+
+/* ==========================================================================
+   Weather Glow Themes
+   ========================================================================== */
+.glow-sunny {
+  --bg-base: #040909;
+  --accent-color: #00f5d4;
+  --glow-color-1: rgba(0, 150, 136, 0.6);
+  --glow-color-2: rgba(0, 229, 255, 0.4);
+  --accent-border-glow: rgba(0, 245, 212, 0.18);
+  --accent-border-glow-hover: rgba(0, 245, 212, 0.35);
+  --accent-glow-shadow: rgba(0, 245, 212, 0.03);
+  --accent-glow-shadow-hover: rgba(0, 245, 212, 0.06);
+  --accent-color-alpha-10: rgba(0, 245, 212, 0.1);
+  --accent-color-alpha-15: rgba(0, 245, 212, 0.15);
+  --accent-color-alpha-25: rgba(0, 245, 212, 0.25);
+  --accent-color-alpha-40: rgba(0, 245, 212, 0.4);
+}
+
+.glow-cloudy {
+  --bg-base: #080c14;
+  --accent-color: #38bdf8;
+  --glow-color-1: rgba(100, 116, 139, 0.5);
+  --glow-color-2: rgba(56, 189, 248, 0.35);
+  --accent-border-glow: rgba(56, 189, 248, 0.18);
+  --accent-border-glow-hover: rgba(56, 189, 248, 0.35);
+  --accent-glow-shadow: rgba(56, 189, 248, 0.03);
+  --accent-glow-shadow-hover: rgba(56, 189, 248, 0.06);
+  --accent-color-alpha-10: rgba(56, 189, 248, 0.1);
+  --accent-color-alpha-15: rgba(56, 189, 248, 0.15);
+  --accent-color-alpha-25: rgba(56, 189, 248, 0.25);
+  --accent-color-alpha-40: rgba(56, 189, 248, 0.4);
+}
+
+.glow-rainy {
+  --bg-base: #050a12;
+  --accent-color: #06b6d4;
+  --glow-color-1: rgba(15, 118, 110, 0.6);
+  --glow-color-2: rgba(2, 132, 199, 0.4);
+  --accent-border-glow: rgba(6, 182, 212, 0.18);
+  --accent-border-glow-hover: rgba(6, 182, 212, 0.35);
+  --accent-glow-shadow: rgba(6, 182, 212, 0.03);
+  --accent-glow-shadow-hover: rgba(6, 182, 212, 0.06);
+  --accent-color-alpha-10: rgba(6, 182, 212, 0.1);
+  --accent-color-alpha-15: rgba(6, 182, 212, 0.15);
+  --accent-color-alpha-25: rgba(6, 182, 212, 0.25);
+  --accent-color-alpha-40: rgba(6, 182, 212, 0.4);
+}
+
+.glow-snowy {
+  --bg-base: #070d18;
+  --accent-color: #93c5fd;
+  --glow-color-1: rgba(226, 232, 240, 0.4);
+  --glow-color-2: rgba(147, 197, 253, 0.45);
+  --accent-border-glow: rgba(147, 197, 253, 0.18);
+  --accent-border-glow-hover: rgba(147, 197, 253, 0.35);
+  --accent-glow-shadow: rgba(147, 197, 253, 0.03);
+  --accent-glow-shadow-hover: rgba(147, 197, 253, 0.06);
+  --accent-color-alpha-10: rgba(147, 197, 253, 0.1);
+  --accent-color-alpha-15: rgba(147, 197, 253, 0.15);
+  --accent-color-alpha-25: rgba(147, 197, 253, 0.25);
+  --accent-color-alpha-40: rgba(147, 197, 253, 0.4);
+}
+
+.glow-stormy {
+  --bg-base: #040308;
+  --accent-color: #a78bfa;
+  --glow-color-1: rgba(76, 29, 149, 0.65);
+  --glow-color-2: rgba(124, 58, 237, 0.45);
+  --accent-border-glow: rgba(167, 139, 250, 0.18);
+  --accent-border-glow-hover: rgba(167, 139, 250, 0.35);
+  --accent-glow-shadow: rgba(167, 139, 250, 0.03);
+  --accent-glow-shadow-hover: rgba(167, 139, 250, 0.06);
+  --accent-color-alpha-10: rgba(167, 139, 250, 0.1);
+  --accent-color-alpha-15: rgba(167, 139, 250, 0.15);
+  --accent-color-alpha-25: rgba(167, 139, 250, 0.25);
+  --accent-color-alpha-40: rgba(167, 139, 250, 0.4);
+}
+
+/* ==========================================================================
+   Warm Weather (>= 25°C) Theme Overrides (Option 2: Sunlit Sea)
+   ========================================================================== */
+.temp-hot {
+  --bg-base: #051515; /* Deep marine emerald */
+  --accent-color: #00f5d4; /* Keep sea wave cyan */
+  --glow-color-1: rgba(254, 240, 138, 0.4); /* Golden sunlight glow at the top-left */
+  --glow-color-2: rgba(0, 245, 212, 0.65); /* Vibrant sea wave cyan glow at the bottom-right */
+  --accent-border-glow: rgba(0, 245, 212, 0.22);
+  --accent-border-glow-hover: rgba(0, 245, 212, 0.4);
+  --accent-glow-shadow: rgba(0, 245, 212, 0.05);
+  --accent-glow-shadow-hover: rgba(0, 245, 212, 0.08);
+  --accent-color-alpha-10: rgba(0, 245, 212, 0.1);
+  --accent-color-alpha-15: rgba(0, 245, 212, 0.15);
+  --accent-color-alpha-25: rgba(0, 245, 212, 0.25);
+  --accent-color-alpha-40: rgba(0, 245, 212, 0.4);
+}
+
+/* ==========================================================================
+   General Reset & Body Styles
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  transition: background-color var(--transition-slow);
+}
+
+/* Background Animated Neon Glows */
+.neon-glow-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0; /* Changed from -1 so glows render in front of body background paint */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.neon-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(150px);
+  opacity: 0.65;
+  transition: background-color var(--transition-slow), 
+              width var(--transition-slow), 
+              height var(--transition-slow), 
+              top var(--transition-slow), 
+              left var(--transition-slow);
+}
+
+.neon-glow-1 {
+  width: 800px;
+  height: 800px;
+  top: -200px;
+  left: -150px;
+  background-color: var(--glow-color-1);
+  animation: floatGlow1 25s infinite alternate ease-in-out;
+}
+
+.neon-glow-2 {
+  width: 700px;
+  height: 700px;
+  bottom: -150px;
+  right: -100px;
+  background-color: var(--glow-color-2);
+  animation: floatGlow2 20s infinite alternate ease-in-out;
+}
+
+@keyframes floatGlow1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(80px, 60px) scale(1.1); }
+  100% { transform: translate(-40px, 120px) scale(0.9); }
+}
+
+@keyframes floatGlow2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-100px, -80px) scale(1.15); }
+  100% { transform: translate(50px, -40px) scale(0.85); }
+}
+
+/* Pulsing effect during thunderstorms */
+.glow-stormy .neon-glow-1 {
+  animation: floatGlow1 18s infinite alternate ease-in-out, lightningPulse 8s infinite;
+}
+
+@keyframes lightningPulse {
+  0%, 95%, 98%, 100% { opacity: 0.5; filter: blur(150px); }
+  96%, 97% { opacity: 0.85; filter: blur(100px); background-color: rgba(255, 255, 255, 0.7); }
+}
+
+/* ==========================================================================
+   Layout Containers
+   ========================================================================== */
+.app-wrapper {
+  position: relative; /* Added relative positioning and z-index to sit on top of the neon glows */
+  z-index: 10;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  gap: 28px;
+}
+
+/* Glass Card Styling Base */
+.glass-card {
+  background: var(--glass-bg-white) padding-box, var(--glass-bg-tint) padding-box, var(--glass-border-gradient) border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border-radius: var(--border-radius-lg);
+  padding: 24px;
+  width: 100%;
+  min-width: 0;
+  transition: border-color var(--transition-normal), background-color var(--transition-normal), box-shadow var(--transition-normal), background var(--transition-normal);
+}
+
+.glass-card:hover {
+  background: var(--glass-bg-white-hover) padding-box, var(--glass-bg-tint) padding-box, var(--glass-border-gradient-hover) border-box;
+  box-shadow: var(--glass-shadow-hover);
+}
+
+/* ==========================================================================
+   Header & Search Autocomplete Styling
+   ========================================================================== */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  background: linear-gradient(135deg, #ffffff 40%, var(--accent-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  z-index: 100;
+}
+
+.search-bar-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: 30px;
+  padding: 0 18px;
+  height: 52px;
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  transition: var(--transition-normal);
+}
+
+.search-bar-wrapper:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.search-icon {
+  color: var(--text-secondary);
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: 15px;
+  width: 100%;
+  font-weight: 400;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.clear-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-normal);
+}
+
+.clear-btn:hover {
+  color: var(--text-primary);
+  transform: scale(1.1);
+}
+
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--accent-color);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Autocomplete Suggestion List */
+.suggestions-list {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  background: rgba(13, 20, 32, 0.85);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  border-radius: var(--border-radius-md);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  list-style: none;
+  padding: 8px 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.suggestions-list li {
+  padding: 12px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: var(--transition-normal);
+}
+
+.suggestions-list li:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.suggestions-list li .city-title {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.suggestions-list li .country-subtitle {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.suggestions-list li .highlight {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Quick Access Cities & Geolocation Buttons
+   ========================================================================== */
+.controls-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.quick-cities {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.city-btn, .glass-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.005)) padding-box,
+              linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.01)) border-box;
+  background-clip: padding-box, border-box;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  padding: 10px 18px;
+  color: var(--text-secondary);
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+}
+
+.city-btn:hover, .glass-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)) padding-box,
+              linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.03)) border-box;
+  color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+.city-btn.active {
+  background: var(--accent-color-alpha-10, rgba(0, 245, 212, 0.1)) padding-box,
+              var(--accent-color) border-box;
+  color: var(--accent-color);
+  font-weight: 600;
+  text-shadow: 0 0 6px var(--accent-color-alpha-40, rgba(0, 245, 212, 0.4));
+  box-shadow: 0 0 16px var(--accent-color-alpha-25, rgba(0, 245, 212, 0.25)), 
+              inset 0 0 8px var(--accent-color-alpha-15, rgba(0, 245, 212, 0.15));
+}
+
+.city-btn.active:hover {
+  transform: translateY(-2px);
+  color: var(--accent-color);
+}
+
+.geo-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--glass-border-hover);
+  border-radius: 30px;
+  padding: 10px 20px;
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+}
+
+.geo-btn:hover {
+  background: var(--text-primary);
+  color: var(--bg-base);
+  border-color: var(--text-primary);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.geo-btn i {
+  width: 16px;
+  height: 16px;
+}
+
+/* ==========================================================================
+   Dashboard Main Layout
+   ========================================================================== */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 24px;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.dashboard-left, .dashboard-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Current Weather Card (Hero Card)
+   ========================================================================== */
+.hero-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 220px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0.015) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-main-info {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.city-name {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+.current-date {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.temp-condition {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.temp-value {
+  font-size: 72px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.condition-badge {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 6px 14px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.condition-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.hero-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.large-icon {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.large-icon i {
+  width: 80px;
+  height: 80px;
+  stroke-width: 1.5;
+  color: var(--text-primary);
+  filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.15));
+}
+
+/* Pulse icon if accent active */
+.glow-sunny .large-icon i {
+  color: var(--accent-color);
+  filter: drop-shadow(0 0 20px rgba(255, 159, 28, 0.4));
+  animation: spinSun 30s linear infinite;
+}
+
+@keyframes spinSun {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.temp-range {
+  display: flex;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.temp-range strong {
+  color: var(--text-primary);
+}
+
+.divider {
+  margin: 0 8px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Metrics Grid Styling
+   ========================================================================== */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 140px;
+  padding: 20px;
+}
+
+.metric-card.double-width {
+  grid-column: span 2;
+  min-height: 160px;
+}
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+
+.metric-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.metric-icon.humidity { color: #38bdf8; }
+.metric-icon.wind { color: #f43f5e; }
+.metric-icon.precipitation { color: #60a5fa; }
+.metric-icon.pressure { color: #34d399; }
+.metric-icon.sun-schedule { color: #fbbf24; }
+
+.metric-body {
+  margin-top: 14px;
+}
+
+.metric-value {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+.metric-hint {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+/* Sun cycle visual */
+.sun-schedule-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  gap: 16px;
+}
+
+.sun-time {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sun-subicon {
+  width: 22px;
+  height: 22px;
+  color: var(--text-secondary);
+}
+
+.time-label {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.time-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sun-track-visual {
+  flex-grow: 1;
+  height: 40px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.sun-arc {
+  width: 100%;
+  max-width: 160px;
+  height: 40px;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 80px 80px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.sun-dot {
+  width: 8px;
+  height: 8px;
+  background: #fbbf24;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #fbbf24;
+  position: absolute;
+  bottom: 0;
+  left: 0%;
+  transform: translate(-50%, 50%);
+  transition: left var(--transition-slow), bottom var(--transition-slow);
+}
+
+/* ==========================================================================
+   Hourly Forecast Carousel Styling
+   ========================================================================== */
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+.card-title i {
+  width: 18px;
+  height: 18px;
+  color: var(--accent-color);
+}
+
+.hourly-scroll-container {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+.hourly-scroll-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.hourly-scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.hourly-scroll-container::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.hourly-scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.hourly-item {
+  flex: 0 0 76px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--border-radius-md);
+  transition: var(--transition-normal);
+}
+
+.hourly-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-4px);
+}
+
+.hourly-time {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.hourly-icon {
+  width: 32px;
+  height: 32px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hourly-icon i {
+  width: 24px;
+  height: 24px;
+  color: var(--text-primary);
+}
+
+.hourly-temp {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.hourly-pop {
+  font-size: 10px;
+  font-weight: 500;
+  color: #60a5fa;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* ==========================================================================
+   5-Day Forecast Styling
+   ========================================================================== */
+.daily-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.daily-row {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  align-items: center;
+  padding: 12px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: var(--transition-normal);
+}
+
+.daily-row:last-child {
+  border-bottom: none;
+}
+
+.daily-row:hover {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--border-radius-sm);
+}
+
+.daily-day {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.daily-day.today {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.daily-condition-col {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.daily-icon-wrapper {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.daily-icon-wrapper i {
+  width: 20px;
+  height: 20px;
+  color: var(--text-primary);
+}
+
+.daily-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 110px;
+}
+
+.daily-temp-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.temp-min {
+  color: var(--text-secondary);
+}
+
+.temp-max {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   State & App Load Containers
+   ========================================================================== */
+.state-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  width: 100%;
+}
+
+.state-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 460px;
+  padding: 40px;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Spinner Loader */
+.app-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.05);
+  border-top-color: var(--accent-color);
+  border-radius: 50%;
+  animation: spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  margin-bottom: 20px;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
+}
+
+.state-content p {
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+/* Error View styling */
+.error-icon {
+  width: 56px;
+  height: 56px;
+  color: #f43f5e;
+  margin-bottom: 16px;
+}
+
+.state-content h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.retry-btn {
+  margin-top: 20px;
+  padding: 10px 24px;
+}
+
+/* Welcome View styling */
+.welcome-icon {
+  width: 64px;
+  height: 64px;
+  color: var(--accent-color);
+  margin-bottom: 20px;
+  animation: pulseWelcome 2s infinite ease-in-out;
+  filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.3));
+}
+
+@keyframes pulseWelcome {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.05); }
+}
+
+.state-content h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* ==========================================================================
+   Footer Section
+   ========================================================================== */
+.app-footer {
+  text-align: center;
+  padding-top: 24px;
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.app-footer p {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Editable Cities & Modal Styling
+   ========================================================================== */
+.city-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+  padding: 10px 18px;
+}
+
+.city-btn.editable {
+  padding-right: 14px;
+}
+
+.edit-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  color: var(--text-secondary);
+  transition: opacity 0.25s ease, width 0.25s ease, color 0.2s ease;
+  margin-left: -2px;
+}
+
+.city-btn.editable:hover .edit-icon-btn {
+  opacity: 0.7;
+  width: 14px;
+  margin-left: 4px;
+}
+
+.edit-icon-btn:hover {
+  opacity: 1 !important;
+  color: var(--accent-color) !important;
+  transform: scale(1.15);
+}
+
+.edit-icon-btn i {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.2;
+}
+
+/* Modal Window styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(4, 6, 10, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+  display: none !important;
+  opacity: 0;
+}
+
+.modal-card {
+  width: 90%;
+  max-width: 400px;
+  background: rgba(10, 15, 26, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  padding: 24px;
+  animation: modalScaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes modalScaleIn {
+  from { transform: scale(0.9) translateY(10px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.modal-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.close-modal-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  transition: var(--transition-normal);
+}
+
+.close-modal-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  transform: rotate(90deg);
+}
+
+.close-modal-btn i {
+  width: 18px;
+  height: 18px;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.modal-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 0 14px;
+  height: 48px;
+  transition: var(--transition-normal);
+}
+
+.modal-input-wrapper:focus-within {
+  border-color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.modal-input-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  margin-right: 10px;
+}
+
+.modal-input-wrapper input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: 14px;
+  width: 100%;
+}
+
+.modal-error-message {
+  font-size: 12px;
+  color: #f43f5e;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.modal-footer .glass-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.modal-footer .save-btn {
+  background: var(--accent-color);
+  color: #000000;
+  border-color: var(--accent-color);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-footer .save-btn:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #000000;
+}
+
+.modal-footer .save-btn .loading-spinner {
+  border-top-color: #000000;
+}
+
+.modal-footer .cancel-btn {
+  color: var(--text-secondary);
+}
+
+/* Moon cycle card styling */
+.moon-cycle-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  gap: 16px;
+}
+
+.moon-details, .moon-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 33%;
+}
+
+.moon-stats {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.moon-phase-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.moon-day {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent-color);
+}
+
+.moon-illumination {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.moon-visual-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.metric-icon.moon-phase {
+  color: #a78bfa;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-wrapper {
+    padding: 20px 14px;
+    gap: 16px;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .logo-container {
+    justify-content: center;
+  }
+
+  .search-container {
+    max-width: 100%;
+  }
+
+  .search-input {
+    font-size: 16px; /* iOS Safari auto-zoom fix */
+  }
+
+  .controls-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .quick-cities {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 6px;
+    justify-content: flex-start;
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+  }
+
+  .quick-cities::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome/Safari */
+  }
+
+  .city-btn {
+    flex-shrink: 0;
+  }
+
+  .geo-btn {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .dashboard-grid {
+    gap: 16px;
+  }
+
+  .dashboard-left, .dashboard-right {
+    gap: 16px;
+  }
+
+  .glass-card {
+    padding: 18px 16px;
+  }
+
+  .hero-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding: 24px 16px;
+  }
+
+  .hero-main-info {
+    gap: 16px;
+    align-items: center;
+  }
+
+  .city-name {
+    font-size: 28px;
+  }
+
+  .temp-value {
+    font-size: 60px;
+  }
+
+  .temp-condition {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .metric-card.double-width {
+    grid-column: span 1;
+    min-height: auto;
+  }
+
+  .sun-schedule-body, .moon-cycle-body {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .sun-track-visual {
+    width: 100%;
+    order: -1;
+  }
+
+  .moon-details, .moon-stats {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+}

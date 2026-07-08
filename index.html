@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cast — Атмосферное приложение погоды</title>
+  <!-- Google Fonts: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css?v=1.1">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="glow-cloudy">
+  <!-- Dynamic Neon Glow Backdrops -->
+  <div class="neon-glow-container">
+    <div class="neon-glow neon-glow-1"></div>
+    <div class="neon-glow neon-glow-2"></div>
+  </div>
+
+  <div class="app-wrapper">
+    <!-- Header Area -->
+    <header class="app-header">
+      <div class="logo-container">
+        <h1 class="logo">cast</h1>
+        <span class="logo-dot"></span>
+      </div>
+
+      <!-- Search & Autocomplete Component -->
+      <div class="search-container" id="search-container">
+        <div class="search-bar-wrapper">
+          <i data-lucide="search" class="search-icon"></i>
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="Поиск города..." 
+            autocomplete="off" 
+            class="search-input"
+          >
+          <button id="clear-search-btn" class="clear-btn hidden" aria-label="Очистить поиск">
+            <i data-lucide="x"></i>
+          </button>
+          <div class="loading-spinner hidden" id="search-spinner"></div>
+        </div>
+        <!-- Autocomplete Dropdown List -->
+        <ul class="suggestions-list hidden" id="suggestions-list"></ul>
+      </div>
+    </header>
+
+    <!-- Quick Access & Location Controls -->
+    <section class="controls-section">
+      <div class="quick-cities">
+        <button class="city-btn" data-city="Москва" data-lat="55.7558" data-lon="37.6173">
+          <span class="city-btn-text">Москва</span>
+        </button>
+        <button class="city-btn" data-city="Санкт-Петербург" data-lat="59.9343" data-lon="30.3351">
+          <span class="city-btn-text">Санкт-Петербург</span>
+        </button>
+        <button class="city-btn" data-city="Сочи" data-lat="43.5992" data-lon="39.7257">
+          <span class="city-btn-text">Сочи</span>
+        </button>
+        <button class="city-btn" data-city="Казань" data-lat="55.7887" data-lon="49.1221">
+          <span class="city-btn-text">Казань</span>
+        </button>
+        <button class="city-btn editable" data-id="0" data-city="Екатеринбург" data-lat="56.8389" data-lon="60.6057">
+          <span class="city-btn-text">Екатеринбург</span>
+          <span class="edit-icon-btn" title="Редактировать город"><i data-lucide="edit-3"></i></span>
+        </button>
+        <button class="city-btn editable" data-id="1" data-city="Владивосток" data-lat="43.1198" data-lon="131.8869">
+          <span class="city-btn-text">Владивосток</span>
+          <span class="edit-icon-btn" title="Редактировать город"><i data-lucide="edit-3"></i></span>
+        </button>
+        <button class="city-btn editable" data-id="2" data-city="Дубай" data-lat="25.2048" data-lon="55.2708">
+          <span class="city-btn-text">Дубай</span>
+          <span class="edit-icon-btn" title="Редактировать город"><i data-lucide="edit-3"></i></span>
+        </button>
+      </div>
+      <button class="geo-btn" id="geo-btn" title="Определить местоположение">
+        <i data-lucide="map-pin"></i>
+        <span>Моя геопозиция</span>
+      </button>
+    </section>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard-grid hidden" id="dashboard">
+      <!-- Left Column: Current Weather Details & 5-Day Forecast -->
+      <div class="dashboard-left">
+        <!-- Hero Weather Card -->
+        <div class="glass-card hero-card">
+          <div class="hero-main-info">
+            <div class="location-details">
+              <h2 id="current-city-name" class="city-name">Загрузка...</h2>
+              <p id="current-date" class="current-date">-- -- ----</p>
+            </div>
+            <div class="temp-condition">
+              <span id="current-temp" class="temp-value">--°</span>
+              <div class="condition-badge">
+                <span id="current-condition-text" class="condition-text">Ожидание...</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="weather-icon-wrapper large-icon" id="hero-weather-icon">
+              <i data-lucide="cloud-sun"></i>
+            </div>
+            <div class="temp-range">
+              <span>Мин: <strong id="hero-temp-min">--°</strong></span>
+              <span class="divider">•</span>
+              <span>Макс: <strong id="hero-temp-max">--°</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-Day Forecast Card -->
+        <div class="glass-card daily-forecast-card">
+          <h3 class="card-title"><i data-lucide="calendar"></i> Прогноз на 5 дней</h3>
+          <div class="daily-list" id="daily-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Meteorological Details Grid & Hourly Forecast -->
+      <div class="dashboard-right">
+        <!-- Metric Grid -->
+        <div class="metrics-grid">
+          <!-- Humidity Card -->
+          <div class="glass-card metric-card">
+            <div class="metric-header">
+              <i data-lucide="droplets" class="metric-icon humidity"></i>
+              <span>Влажность</span>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value" id="metric-humidity">--%</span>
+              <p class="metric-hint" id="metric-humidity-hint">Комфортный уровень</p>
+            </div>
+          </div>
+
+          <!-- Wind Card -->
+          <div class="glass-card metric-card">
+            <div class="metric-header">
+              <i data-lucide="wind" class="metric-icon wind"></i>
+              <span>Ветер</span>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value" id="metric-wind">-- м/с</span>
+              <p class="metric-hint" id="metric-wind-dir">Направление: --</p>
+            </div>
+          </div>
+
+          <!-- Precipitation Probability Card -->
+          <div class="glass-card metric-card">
+            <div class="metric-header">
+              <i data-lucide="cloud-rain" class="metric-icon precipitation"></i>
+              <span>Вероятность осадков</span>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value" id="metric-precipitation">--%</span>
+              <p class="metric-hint" id="metric-precipitation-hint">Без осадков</p>
+            </div>
+          </div>
+
+          <!-- Pressure Card -->
+          <div class="glass-card metric-card">
+            <div class="metric-header">
+              <i data-lucide="compass" class="metric-icon pressure"></i>
+              <span>Давление</span>
+            </div>
+            <div class="metric-body">
+              <span class="metric-value" id="metric-pressure">-- мм рт. ст.</span>
+              <p class="metric-hint" id="metric-pressure-hint">Нормальное</p>
+            </div>
+          </div>
+
+          <!-- Sun Schedule Card (Sunrise/Sunset) -->
+          <div class="glass-card metric-card double-width">
+            <div class="metric-header">
+              <i data-lucide="sun" class="metric-icon sun-schedule"></i>
+              <span>Солнечный цикл</span>
+            </div>
+            <div class="sun-schedule-body">
+              <div class="sun-time">
+                <i data-lucide="sunrise" class="sun-subicon"></i>
+                <div>
+                  <span class="time-label">Восход</span>
+                  <span class="time-value" id="time-sunrise">--:--</span>
+                </div>
+              </div>
+              <div class="sun-track-visual">
+                <div class="sun-arc">
+                  <div class="sun-dot" id="sun-position"></div>
+                </div>
+              </div>
+              <div class="sun-time">
+                <i data-lucide="sunset" class="sun-subicon"></i>
+                <div>
+                  <span class="time-label">Закат</span>
+                  <span class="time-value" id="time-sunset">--:--</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Moon Cycle Card -->
+          <div class="glass-card metric-card double-width">
+            <div class="metric-header">
+              <i data-lucide="moon" class="metric-icon moon-phase"></i>
+              <span>Лунный цикл</span>
+            </div>
+            <div class="moon-cycle-body">
+              <div class="moon-details">
+                <span class="moon-phase-name" id="moon-phase-name">Загрузка...</span>
+                <span class="moon-illumination" id="moon-illumination">Фаза: --%</span>
+              </div>
+              <div class="moon-visual-container" id="moon-visual">
+                <!-- SVG will be injected here -->
+              </div>
+              <div class="moon-stats">
+                <span class="stat-label" id="moon-next-event-label">До полнолуния</span>
+                <span class="stat-value" id="moon-next-event-value">-- дн.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hourly Forecast Card -->
+        <div class="glass-card hourly-forecast-card">
+          <h3 class="card-title"><i data-lucide="clock"></i> Почасовой прогноз погоды</h3>
+          <div class="hourly-scroll-container" id="hourly-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Initial / Loading / Error States -->
+    <div class="state-container" id="state-container">
+      <div class="state-content" id="loading-state">
+        <div class="app-spinner"></div>
+        <p>Получаем метеоданные...</p>
+      </div>
+      <div class="state-content hidden" id="error-state">
+        <i data-lucide="alert-circle" class="error-icon"></i>
+        <h3>Упс! Произошла ошибка</h3>
+        <p id="error-message">Не удалось загрузить данные о погоде.</p>
+        <button class="glass-btn retry-btn" id="retry-btn">Повторить попытку</button>
+      </div>
+      <div class="state-content hidden" id="welcome-state">
+        <i data-lucide="cloud-lightning" class="welcome-icon"></i>
+        <h2>Добро пожаловать в cast</h2>
+        <p>Выберите город из списка популярных выше или воспользуйтесь поиском, чтобы увидеть подробную метеосводку с атмосферным фоновым свечением.</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>&copy; 2026 cast. Разработано с использованием данных Open-Meteo API.</p>
+    </footer>
+  </div>
+
+  <!-- Edit City Modal Overlay -->
+  <div class="modal-overlay hidden" id="edit-city-modal">
+    <div class="glass-card modal-card animate-modal">
+      <div class="modal-header">
+        <h3>Редактировать город</h3>
+        <button class="close-modal-btn" id="close-modal-btn" aria-label="Закрыть">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="modal-city-input" class="modal-label">Название города</label>
+        <div class="modal-input-wrapper">
+          <i data-lucide="map" class="modal-input-icon"></i>
+          <input type="text" id="modal-city-input" placeholder="Например: Новосибирск" autocomplete="off">
+        </div>
+        <p class="modal-error-message hidden" id="modal-error"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="glass-btn cancel-btn" id="modal-cancel-btn">Отмена</button>
+        <button class="glass-btn save-btn" id="modal-save-btn">
+          <span>Сохранить</span>
+          <div class="loading-spinner hidden" id="modal-spinner"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
