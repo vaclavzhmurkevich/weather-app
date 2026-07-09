@@ -8,9 +8,9 @@
 // Application Configuration & State
 // ==========================================================================
 const CONFIG = {
-  DEFAULT_LAT: 55.7558, // Moscow
-  DEFAULT_LON: 37.6173,
-  DEFAULT_CITY: "Москва",
+  DEFAULT_LAT: 59.9139, // Oslo
+  DEFAULT_LON: 10.7522,
+  DEFAULT_CITY: "Осло",
   WEATHER_API_URL: "https://api.open-meteo.com/v1/forecast",
   GEOCODE_API_URL: "https://geocoding-api.open-meteo.com/v1/search"
 };
@@ -714,9 +714,9 @@ function renderMoonCycle(currentTimeStr) {
 // Custom Editable Cities Helpers
 // ==========================================================================
 const DEFAULT_EDITABLE_CITIES = [
-  { name: "Екатеринбург", lat: 56.8389, lon: 60.6057 },
-  { name: "Владивосток", lat: 43.1198, lon: 131.8869 },
-  { name: "Дубай", lat: 25.2048, lon: 55.2708 }
+  { name: "Осло", lat: 59.9139, lon: 10.7522 },
+  { name: "Даугавпилс", lat: 55.8747, lon: 26.5362 },
+  { name: "Варшава", lat: 52.2297, lon: 21.0122 }
 ];
 
 function loadCustomCities() {
@@ -724,6 +724,15 @@ function loadCustomCities() {
   if (customCities) {
     try {
       customCities = JSON.parse(customCities);
+      // Migrate old default cities to new ones if the user hasn't customized them yet
+      if (Array.isArray(customCities) && customCities.length === 3) {
+        const isOldDefaults = customCities[0].name === "Екатеринбург" && 
+                              customCities[1].name === "Владивосток" && 
+                              customCities[2].name === "Дубай";
+        if (isOldDefaults) {
+          customCities = null;
+        }
+      }
     } catch (e) {
       console.error("Failed to parse custom cities", e);
       customCities = null;
@@ -990,14 +999,18 @@ function bootstrap() {
   
   initEventHandlers();
   
-  // Set default initial load for Moscow and activate button
-  const moscowBtn = document.querySelector('.city-btn[data-city="Москва"]');
-  if (moscowBtn) {
-    moscowBtn.classList.add("active");
-    STATE.activeCityBtn = moscowBtn;
+  // Load custom cities to find the first one (fallback to CONFIG default)
+  const customCities = loadCustomCities();
+  const defaultCity = customCities[0] || { name: CONFIG.DEFAULT_CITY, lat: CONFIG.DEFAULT_LAT, lon: CONFIG.DEFAULT_LON };
+  
+  // Highlight the first editable button
+  const firstEditableBtn = document.querySelector('.city-btn.editable[data-id="0"]');
+  if (firstEditableBtn) {
+    firstEditableBtn.classList.add("active");
+    STATE.activeCityBtn = firstEditableBtn;
   }
   
-  loadWeather(CONFIG.DEFAULT_LAT, CONFIG.DEFAULT_LON, CONFIG.DEFAULT_CITY);
+  loadWeather(defaultCity.lat, defaultCity.lon, defaultCity.name);
 }
 
 // Run bootstrap when DOM content is fully parsed
