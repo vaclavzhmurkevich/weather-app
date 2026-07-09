@@ -411,7 +411,10 @@ const TRANSLATIONS = {
     editTooltip: "Редактировать город",
     errorEmptyInput: "Пожалуйста, введите название города",
     errorGeocode: "Город не найден, проверьте написание",
-    errorModalNetwork: "Ошибка сети при поиске города"
+    errorModalNetwork: "Ошибка сети при поиске города",
+    today: "Сегодня",
+    now: "Сейчас",
+    errorNetwork: "Не удалось связаться с сервером погоды. Проверьте соединение с интернетом."
   },
   en: {
     placeholder: "Search city...",
@@ -458,7 +461,10 @@ const TRANSLATIONS = {
     editTooltip: "Edit city",
     errorEmptyInput: "Please enter city name",
     errorGeocode: "City not found, check spelling",
-    errorModalNetwork: "Network error searching city"
+    errorModalNetwork: "Network error searching city",
+    today: "Today",
+    now: "Now",
+    errorNetwork: "Failed to connect to the weather server. Please check your internet connection."
   },
   no: {
     placeholder: "Søk etter sted...",
@@ -505,7 +511,10 @@ const TRANSLATIONS = {
     editTooltip: "Rediger by",
     errorEmptyInput: "Vennligst skriv inn bynavn",
     errorGeocode: "Byen ble ikke funnet, sjekk skrivemåten",
-    errorModalNetwork: "Nettverksfeil under søk"
+    errorModalNetwork: "Nettverksfeil under søk",
+    today: "I dag",
+    now: "Nå",
+    errorNetwork: "Kunne ikke koble til værtjenesten. Vennligst sjekk internettforbindelsen."
   },
   pl: {
     placeholder: "Szukaj miasta...",
@@ -552,7 +561,10 @@ const TRANSLATIONS = {
     editTooltip: "Edytuj miasto",
     errorEmptyInput: "Wpisz nazwę miasta",
     errorGeocode: "Nie znaleziono miasta, sprawdź pisownię",
-    errorModalNetwork: "Błąd sieci podczas wyszukiwania miasta"
+    errorModalNetwork: "Błąd sieci podczas wyszukiwania miasta",
+    today: "Dzisiaj",
+    now: "Teraz",
+    errorNetwork: "Nie udało się połączyć z serwerem pogodowym. Sprawdź swoje połączenie internetowe."
   },
   uk: {
     placeholder: "Пошук міста...",
@@ -599,7 +611,10 @@ const TRANSLATIONS = {
     editTooltip: "Редагувати місто",
     errorEmptyInput: "Будь ласка, введіть назву міста",
     errorGeocode: "Місто не знайдено, перевірте написання",
-    errorModalNetwork: "Помилка мережі при пошуку міста"
+    errorModalNetwork: "Помилка мережі при пошуку міста",
+    today: "Сьогодні",
+    now: "Зараз",
+    errorNetwork: "Не вдалося з'єднатися з сервером погоди. Перевірте підключення до інтернету."
   },
   be: {
     placeholder: "Пошук горада...",
@@ -636,7 +651,7 @@ const TRANSLATIONS = {
     errorText: "Не ўдалося загрузіць дадзеныя аб надвор'і.",
     retryText: "Паўтарыць спробу",
     welcomeTitle: "Сардэчна запрашаем у cast",
-    welcomeText: "Выберыце горад са спісу папулярных вышэй або скарыстайцеся пошукам, каб убачыць падрабязную метеозводку з атмасферным фонавым свячэннем.",
+    welcomeText: "Виберыце горад са спісу папулярных вышэй або скарыстайцеся пошукам, каб убачыць падрабязную метеозводку з атмасферным фонавым свячэннем.",
     footerText: "&copy; 2026 cast. Распрацавана з выкарыстаннем дадзеных Open-Meteo API.",
     modalTitle: "Рэдагаваць горад",
     modalInputLabel: "Назва горада",
@@ -646,13 +661,12 @@ const TRANSLATIONS = {
     editTooltip: "Рэдагаваць горад",
     errorEmptyInput: "Калі ласка, увядзіце назву горада",
     errorGeocode: "Горад не знойдзены, праверце напісанне",
-    errorModalNetwork: "Памылка сеткі пры пошуку горада"
+    errorModalNetwork: "Памылка сеткі пры пошуку горада",
+    today: "Сёння",
+    now: "Зараз",
+    errorNetwork: "Не ўдалося звязацца з серверам надвор'я. Праверце падключэнне да інтэрнэту."
   }
-};
-
-// ==========================================================================
-// DOM Elements Cache
-// ==========================================================================
+}
 const DOM = {
   body: document.body,
   searchInput: document.getElementById("search-input"),
@@ -948,7 +962,7 @@ function renderWeather(data, cityName) {
 
   // Update current date representation
   const dateObj = new Date(current.time);
-  const formattedDate = dateObj.toLocaleDateString("ru-RU", {
+  const formattedDate = dateObj.toLocaleDateString(getLocaleString(STATE.currentLanguage), {
     weekday: "long",
     day: "numeric",
     month: "long"
@@ -969,15 +983,16 @@ function renderWeather(data, cityName) {
   DOM.metricHumidity.textContent = `${Math.round(current.relative_humidity_2m)}%`;
   DOM.metricHumidityHint.textContent = getHumidityHint(current.relative_humidity_2m);
 
-  DOM.metricWind.textContent = `${current.wind_speed_10m.toFixed(1)} м/с`;
-  DOM.metricWindDir.textContent = `Направление: ${getWindDirection(current.wind_direction_10m)} (${Math.round(current.wind_direction_10m)}°)`;
+  const t = TRANSLATIONS[STATE.currentLanguage] || TRANSLATIONS["ru"];
+  DOM.metricWind.textContent = `${current.wind_speed_10m.toFixed(1)} ${t.windSpeedUnit}`;
+  DOM.metricWindDir.textContent = `${t.windDirection}: ${getWindDirection(current.wind_direction_10m)} (${Math.round(current.wind_direction_10m)}°)`;
 
   DOM.metricPrecipitation.textContent = `${Math.round(hourly.precipitation_probability[0])}%`;
   DOM.metricPrecipitationHint.textContent = getPrecipitationHint(current.precipitation, current.weather_code);
 
   // Convert surface pressure from hPa to mm Hg
   const pressureMmHg = Math.round(current.surface_pressure * 0.750062);
-  DOM.metricPressure.textContent = `${pressureMmHg} мм рт. ст.`;
+  DOM.metricPressure.textContent = `${pressureMmHg} ${t.pressureUnit}`;
   DOM.metricPressureHint.textContent = getPressureHint(pressureMmHg);
 
   // Update Sunrise / Sunset
@@ -1028,7 +1043,8 @@ function renderHourlySlider(hourly, currentTimeStr) {
     const pop = hourly.precipitation_probability[index];
     
     const details = getWeatherDetails(code);
-    const hourLabel = i === 0 ? "Сейчас" : time.toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" });
+    const t = TRANSLATIONS[STATE.currentLanguage] || TRANSLATIONS["ru"];
+    const hourLabel = i === 0 ? t.now : time.toLocaleTimeString(getLocaleString(STATE.currentLanguage), { hour: "2-digit", minute: "2-digit" });
 
     const hourlyItem = document.createElement("div");
     hourlyItem.className = "hourly-item";
@@ -1067,12 +1083,13 @@ function renderDailyForecast(daily) {
     const code = daily.weather_code[i];
     const details = getWeatherDetails(code);
 
-    let dayLabel = date.toLocaleDateString("ru-RU", { weekday: "short" });
+    let dayLabel = date.toLocaleDateString(getLocaleString(STATE.currentLanguage), { weekday: "short" });
     dayLabel = dayLabel.charAt(0).toUpperCase() + dayLabel.slice(1);
     
     let rowClass = "daily-row";
     if (i === 0) {
-      dayLabel = "Сегодня";
+      const t = TRANSLATIONS[STATE.currentLanguage] || TRANSLATIONS["ru"];
+      dayLabel = t.today;
       rowClass += " today";
     }
 
