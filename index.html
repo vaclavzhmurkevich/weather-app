@@ -49,6 +49,19 @@
         <!-- Autocomplete Dropdown List -->
         <ul class="suggestions-list hidden" id="suggestions-list"></ul>
       </div>
+
+      <!-- Language Selector Component -->
+      <div class="lang-selector-container">
+        <i data-lucide="globe" class="lang-globe-icon"></i>
+        <select id="lang-select" class="lang-select" aria-label="Выбор языка">
+          <option value="ru">RU</option>
+          <option value="en">EN</option>
+          <option value="no">NO</option>
+          <option value="pl">PL</option>
+          <option value="uk">UA</option>
+          <option value="be">BY</option>
+        </select>
+      </div>
     </header>
 
     <!-- Quick Access & Location Controls -->
@@ -96,9 +109,9 @@
               <i data-lucide="cloud-sun"></i>
             </div>
             <div class="temp-range">
-              <span>Мин: <strong id="hero-temp-min">--°</strong></span>
+              <span><span class="temp-label">Мин:</span> <strong id="hero-temp-min">--°</strong></span>
               <span class="divider">•</span>
-              <span>Макс: <strong id="hero-temp-max">--°</strong></span>
+              <span><span class="temp-label">Макс:</span> <strong id="hero-temp-max">--°</strong></span>
             </div>
           </div>
         </div>
@@ -277,6 +290,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=1.2"></script>
+  <script src="app.js?v=1.3"></script>
 </body>
 </html>

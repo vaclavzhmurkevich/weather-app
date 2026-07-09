@@ -418,6 +418,52 @@ body {
   font-size: 12px;
 }
 
+/* Language Selector Styling */
+.lang-selector-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--border-radius-md);
+  padding: 8px 14px;
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  transition: var(--transition-normal);
+}
+
+.lang-selector-container:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+.lang-globe-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--text-secondary);
+}
+
+.lang-select {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding-right: 4px;
+}
+
+.lang-select option {
+  background: #0d1420;
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  padding: 8px;
+}
+
 .suggestions-list li .highlight {
   color: var(--accent-color);
   font-weight: 600;
